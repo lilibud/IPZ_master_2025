@@ -11,18 +11,36 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            IPZ_master_2025Theme {
 
-                var showOnboarding by remember { mutableStateOf(true) }
+            var showOnboarding by remember { mutableStateOf(true) }
+            var showSettings by remember { mutableStateOf(false) }
+            var isDarkTheme by remember { mutableStateOf(false) }
 
-                if (showOnboarding) {
-                    OnboardingScreen(
-                        onContinue = { showOnboarding = false }
-                    )
-                } else {
-                    ChatScreen()
+            IPZ_master_2025Theme(
+                darkTheme = isDarkTheme
+            ) {
+
+                when {
+                    showOnboarding -> {
+                        OnboardingScreen(
+                            onContinue = { showOnboarding = false }
+                        )
+                    }
+
+                    showSettings -> {
+                        SettingsScreen(
+                            isDarkTheme = isDarkTheme,
+                            onThemeChange = { isDarkTheme = it },
+                            onBack = { showSettings = false }
+                        )
+                    }
+
+                    else -> {
+                        ChatScreen(
+                            onOpenSettings = { showSettings = true }
+                        )
+                    }
                 }
-
             }
         }
     }
