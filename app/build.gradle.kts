@@ -44,5 +44,6 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling:1.5.4")
 
     implementation("com.google.android.material:material:1.11.0")
+    implementation("androidx.compose.material3:material3")
 }
 
